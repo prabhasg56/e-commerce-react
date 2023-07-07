@@ -1,0 +1,19 @@
+.hero-section {
+    display: flex;
+    width: 100%;
+    height: 12rem;
+    position: sticky;
+    align-items: center;
+    background-color: gray;
+    justify-content: center;
+    border: white 1px;
+    margin-bottom: 2rem;
+}
+
+.hero-title {
+    color: white;
+}
+
+.hero-title h1{
+    font-size: 7rem;
+}
