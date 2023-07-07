@@ -1,9 +1,15 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import HeroSection from "./HeroSection";
+import { Button, Nav, Navbar, Container} from "react-bootstrap";
 
-const Header = () => {
+import { useState } from 'react';
+import HeroSection from "./HeroSection";
+import Cart from "../Cart/Cart";
+
+const Header = (props) => {
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => setShow(true);
+
+
   return (
     <>
       <Navbar
@@ -22,7 +28,11 @@ const Header = () => {
             <Nav.Link href="#features">Store</Nav.Link>
             <Nav.Link href="#pricing">About</Nav.Link>
           </Nav>
+          <Nav>
+            <Button variant="light"  style={{fontWeight:'bold'}} onClick={()=>handleShow()}>{`Cart ${0}`}</Button>
+          </Nav>
         </Container>
+        <Cart showCartItems = {show}/>
       </Navbar>
       <HeroSection />
     </>
