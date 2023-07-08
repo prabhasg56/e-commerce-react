@@ -1,14 +1,9 @@
 import { Button, Nav, Navbar, Container} from "react-bootstrap";
 
-import { useState } from 'react';
 import HeroSection from "./HeroSection";
 import Cart from "../Cart/Cart";
 
 const Header = (props) => {
-    const [show, setShow] = useState(false);
-
-    const handleShow = () => setShow(true);
-
 
   return (
     <>
@@ -29,10 +24,9 @@ const Header = (props) => {
             <Nav.Link href="#pricing">About</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="light"  style={{fontWeight:'bold'}} onClick={()=>handleShow()}>{`Cart ${0}`}</Button>
+            <Button variant="light"  style={{fontWeight:'bold'}} onClick={()=>props.showModalHandler(true)}>{`Cart ${0}`}</Button>
           </Nav>
         </Container>
-        <Cart showCartItems = {show}/>
       </Navbar>
       <HeroSection />
     </>

@@ -44,7 +44,7 @@ const cartElements = [
 const Cart = (props) => {
   return (
     <div>
-      <CartModal cartElements={cartElements} showCartItems = {props.showCartItems}/>
+      <CartModal cartElements={cartElements} showCartItems = {props.showModal} showModalHandler = {props.showModalHandler}/>
     </div>
   )
 }
