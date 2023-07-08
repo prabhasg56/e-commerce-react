@@ -1,6 +1,9 @@
 import { Button, Modal } from "react-bootstrap";
+import CartContext from "../store/cart-context";
+import { useContext } from "react";
 
 function CartModal(props) {
+  const cartCtx = useContext(CartContext);
   const handleClose = () => props.showModalHandler(false);
 
   return (
@@ -42,7 +45,7 @@ function CartModal(props) {
             })}
           </table>
         </Modal.Body>
-
+        <span style={{marginLeft:'25%', fontWeight: 'bold'}}>{`Total Amount = $${cartCtx._currentValue.totalAmount}`}</span>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

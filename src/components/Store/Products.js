@@ -1,5 +1,5 @@
 import { Button, Card, Col, Row} from "react-bootstrap";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import CartContext from "../store/cart-context";
 
 const productsArr = [
@@ -35,25 +35,25 @@ const productsArr = [
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
   },
   {
-    title: "Black and white Colors",
+    title: "Black and white Colors1",
 
-    price: 50,
+    price: 54,
 
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
   },
 
   {
-    title: "Yellow and Black Colors",
+    title: "Yellow and Black Colors1",
 
-    price: 70,
+    price: 72,
 
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
   },
 
   {
-    title: "Blue Color",
+    title: "Blue Color1",
 
-    price: 100,
+    price: 101,
 
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
   },
@@ -63,7 +63,7 @@ const Products = () => {
   const cartCtx = useContext(CartContext);
 
   const addToCart = (product, index) => {
-    cartCtx._currentValue.addItem({...product, quantity: 1}, index);
+    cartCtx._currentValue.addItem({...product, quantity: 1, index: index});
   }
 
   return (

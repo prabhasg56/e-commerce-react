@@ -1,10 +1,11 @@
 import { Button, Nav, Navbar, Container} from "react-bootstrap";
 
 import HeroSection from "./HeroSection";
-import Cart from "../Cart/Cart";
+import CartContext from "../store/cart-context";
+import { useContext } from "react";
 
 const Header = (props) => {
-
+  const cartCtx = useContext(CartContext);
   return (
     <>
       <Navbar
@@ -24,7 +25,7 @@ const Header = (props) => {
             <Nav.Link href="#pricing">About</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="light"  style={{fontWeight:'bold'}} onClick={()=>props.showModalHandler(true)}>{`Cart ${0}`}</Button>
+            <Button variant="light"  style={{fontWeight:'bold'}} onClick={()=>props.showModalHandler(true)}>{`Cart ${cartCtx._currentValue.items.length}`}</Button>
           </Nav>
         </Container>
       </Navbar>

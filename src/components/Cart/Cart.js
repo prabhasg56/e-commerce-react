@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CartModal from './Madal';
+import CartContext from '../store/cart-context';
 
 const cartElements = [
 
@@ -42,9 +43,11 @@ const cartElements = [
     ]
 
 const Cart = (props) => {
+  const cartCtx = useContext(CartContext);
+
   return (
     <div>
-      <CartModal cartElements={cartElements} showCartItems = {props.showModal} showModalHandler = {props.showModalHandler}/>
+      <CartModal cartElements={cartCtx._currentValue.items} showCartItems = {props.showModal} showModalHandler = {props.showModalHandler}/>
     </div>
   )
 }
