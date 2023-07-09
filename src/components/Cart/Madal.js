@@ -37,7 +37,7 @@ function CartModal(props) {
                     <td>{`$${item.price}`}</td>
                     <td>{item.quantity}</td>
                     <td>
-                      <Button variant="danger">Remove</Button>
+                      <Button variant="danger" onClick={() => cartCtx._currentValue.removeItem(item.index)}>Remove</Button>
                     </td>
                   </tr>
                 </tbody>
@@ -45,7 +45,9 @@ function CartModal(props) {
             })}
           </table>
         </Modal.Body>
-        <span style={{marginLeft:'25%', fontWeight: 'bold'}}>{`Total Amount = $${cartCtx._currentValue.totalAmount}`}</span>
+        <span
+          style={{ marginLeft: "25%", fontWeight: "bold" }}
+        >{`Total Amount = $${cartCtx._currentValue.totalAmount}`}</span>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
