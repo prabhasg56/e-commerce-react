@@ -6,6 +6,14 @@ function CartModal(props) {
   const cartCtx = useContext(CartContext);
   const handleClose = () => props.showModalHandler(false);
 
+  const buyHandler = () => {
+    if(cartCtx._currentValue.items.length === 0){
+      alert("You have Nothing in Cart , Add some products to purchase !")
+    } else {
+      cartCtx._currentValue.buyItems(true);
+    }
+  }
+
   return (
     <>
       <Modal show={props.showCartItems} class="modal-dialog modal-lg">
@@ -52,7 +60,7 @@ function CartModal(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Purchase</Button>
+          <Button variant="primary" onClick={() => buyHandler()}>Purchase</Button>
         </Modal.Footer>
       </Modal>
     </>

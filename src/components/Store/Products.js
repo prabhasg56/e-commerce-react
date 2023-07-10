@@ -1,4 +1,4 @@
-import { Button, Card, Col, Row} from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import React, { useContext, useState } from "react";
 import CartContext from "../store/cart-context";
 
@@ -63,27 +63,31 @@ const Products = () => {
   const cartCtx = useContext(CartContext);
 
   const addToCart = (product, index) => {
-    cartCtx._currentValue.addItem({...product, quantity: 1, index: index});
-  }
+    cartCtx._currentValue.addItem({ ...product, quantity: 1, index: index });
+  };
 
   return (
-    <div >
-      { <Row xs={1} md={5} className="g-4">
-      {productsArr.map((product, idx) => (
-        <Col key={idx}>
-          <Card>
-            <Card.Img variant="top" src={product.imageUrl} />
-            <Card.Body className="text-center">
-              <Card.Title>{product.title}</Card.Title>
-              <Card.Text>
-                    {`$${product.price}`}
-              </Card.Text>
-              <Button onClick={()=>addToCart(product, idx)}>Add to Cart</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>}
+    <div>
+      <h2 className="text-center mt-4 fw-bold">MUSIC</h2>
+
+      {
+        <Row xs={1} md={5} className="mt-2 g-4">
+          {productsArr.map((product, idx) => (
+            <Col key={idx}>
+              <Card>
+                <Card.Img variant="top" src={product.imageUrl} />
+                <Card.Body className="text-center">
+                  <Card.Title>{product.title}</Card.Title>
+                  <Card.Text>{`$${product.price}`}</Card.Text>
+                  <Button onClick={() => addToCart(product, idx)}>
+                    Add to Cart
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      }
     </div>
   );
 };

@@ -67,6 +67,15 @@ const cartReducer = (state, action) => {
     };
   }
 
+  if (action.type === "BUY") {
+    if (action.item === true) {
+      return {
+        items: [],
+        totalAmount: 0,
+      };
+    }
+  }
+
   return state;
 };
 
@@ -77,8 +86,11 @@ const CartProvider = (props) => {
   );
 
   const addItemToCartHandler = (item) => {
-    // console.log({ type: "ADD", item: item });
     dispatchCartAction({ type: "ADD", item: item });
+  };
+
+  const buyItemsHandler = (item) => {
+    dispatchCartAction({ type: "BUY", item: item });
   };
 
   const removeItemFromCartHandler = (id) => {
@@ -89,6 +101,7 @@ const CartProvider = (props) => {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
+    buyItems: buyItemsHandler,
     removeItem: removeItemFromCartHandler,
   });
   return (

@@ -1,0 +1,27 @@
+#about {
+    max-width: 60rem;
+    margin: 0 auto;
+    font-size: 22px;
+}
+
+.contents  {
+    margin: 20px;
+    font-size: 17px;
+    color: #777;
+}
+.contents img {
+    float: left;
+    margin: 20px 50px;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    
+}
+
+p{
+    display: block;
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
