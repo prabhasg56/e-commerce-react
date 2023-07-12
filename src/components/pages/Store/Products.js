@@ -1,6 +1,6 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
 import React, { useContext, useState } from "react";
-import CartContext from "../store/cart-context";
+import CartContext from "../../store/cart-context";
 
 const productsArr = [
   {

@@ -4,11 +4,12 @@ import ReactDOM  from "react-dom";
 
 import Header from "./components/Layout/Header";
 import Footer from "./components/Footer/Footer";
-import Products from "./components/Store/Products";
+import Products from "./components/pages/Store/Products";
 import Cart from "./components/Cart/Cart";
 import CartProvider from "./components/store/CartProvider";
-import About from "./components/About/About";
-import Home from "./components/Home/Home";
+import About from "./components/pages/About/About";
+import Home from "./components/pages/Home/Home";
+import ContactUs from "./components/pages/Contact/ContactUs";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Products/>} />
         <Route path="/about" element={<About />} />
+        <Route path="/contactUs" element={<ContactUs />} />
       </Routes>
       <Footer/>
     </CartProvider>
