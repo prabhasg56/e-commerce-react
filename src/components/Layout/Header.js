@@ -33,7 +33,7 @@ const Header = (props) => {
               <NavLink to="/about" className="nav-componets">About</NavLink>
             </Nav.Link>
             <Nav.Link>
-              <NavLink to="/contactUs" className="nav-componets">Contact Us</NavLink>
+              <NavLink to="/contactUs" className="nav-componets">Contact US</NavLink>
             </Nav.Link>
           </Nav>
           <Nav>
