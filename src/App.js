@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Route, Routes} from 'react-router-dom';
-import ReactDOM  from "react-dom";
+import { Route, Routes, Switch } from "react-router-dom";
+import ReactDOM from "react-dom";
 
 import Header from "./components/Layout/Header";
 import Footer from "./components/Footer/Footer";
@@ -10,27 +10,31 @@ import CartProvider from "./components/store/CartProvider";
 import About from "./components/pages/About/About";
 import Home from "./components/pages/Home/Home";
 import ContactUs from "./components/pages/Contact/ContactUs";
+import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
 
   const openModalHandler = (show) => {
-      setOpenModal(show);
-  }
+    setOpenModal(show);
+  };
 
   return (
+    <CartProvider>
+      {ReactDOM.createPortal(
+        <Cart showModal={openModal} showModalHandler={openModalHandler} />,
+        document.getElementById("cart-modal")
+      )}
+      <Header showModalHandler={openModalHandler} />
 
-    <CartProvider >
-      {ReactDOM.createPortal(<Cart showModal = {openModal} showModalHandler = {openModalHandler}/>, document.getElementById("cart-modal"))}
-    <Header showModalHandler = {openModalHandler}/>
-    
-    <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/store" element={<Products/>} />
+        <Route path="/store" element={<Products />} exact/>
         <Route path="/about" element={<About />} />
         <Route path="/contactUs" element={<ContactUs />} />
+        <Route path="/store/:productId" element={<ProductDetails/>}/>
       </Routes>
-      <Footer/>
+      <Footer />
     </CartProvider>
   );
 }

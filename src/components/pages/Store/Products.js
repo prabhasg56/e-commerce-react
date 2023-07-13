@@ -1,6 +1,7 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
 import React, { useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
+import { NavLink } from "react-router-dom";
 
 const productsArr = [
   {
@@ -75,10 +76,14 @@ const Products = () => {
           {productsArr.map((product, idx) => (
             <Col key={idx}>
               <Card>
-                <Card.Img variant="top" src={product.imageUrl} />
+                <NavLink to="/product-details" >
+                  <Card.Img variant="top" src={product.imageUrl} />
+                </NavLink>
                 <Card.Body className="text-center">
-                  <Card.Title>{product.title}</Card.Title>
-                  <Card.Text>{`$${product.price}`}</Card.Text>
+                  <NavLink to="/product-details" >
+                    <Card.Title>{product.title}</Card.Title>
+                    <Card.Text>{`$${product.price}`}</Card.Text>
+                  </NavLink>
                   <Button onClick={() => addToCart(product, idx)}>
                     Add to Cart
                   </Button>
