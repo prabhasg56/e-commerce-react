@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import CartContext from "./cart-context";
+import productsArr from "./totalProducts";
 
 const defaultCartState = {
   items: [],
@@ -100,6 +101,7 @@ const CartProvider = (props) => {
   const cartContext = React.createContext({
     items: cartState.items,
     totalAmount: cartState.totalAmount,
+    totalProducts: productsArr,
     addItem: addItemToCartHandler,
     buyItems: buyItemsHandler,
     removeItem: removeItemFromCartHandler,

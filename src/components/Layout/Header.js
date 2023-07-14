@@ -2,7 +2,6 @@ import { Button, Nav, Navbar, Container } from "react-bootstrap";
 import { useContext } from "react";
 import { NavLink} from "react-router-dom";
 
-import HeroSection from "./HeroSection";
 import CartContext from "../store/cart-context";
 import './Header.css'
 
@@ -45,7 +44,6 @@ const Header = (props) => {
           </Nav>
         </Container>
       </Navbar>
-      <HeroSection />
     </>
   );
 };

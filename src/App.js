@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Route, Routes, Switch } from "react-router-dom";
 import ReactDOM from "react-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Header from "./components/Layout/Header";
 import Footer from "./components/Footer/Footer";
@@ -11,12 +11,18 @@ import About from "./components/pages/About/About";
 import Home from "./components/pages/Home/Home";
 import ContactUs from "./components/pages/Contact/ContactUs";
 import ProductDetails from "./components/pages/ProductDetails/ProductDetails";
+import HeroSection from "./components/Layout/HeroSection";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
+  const [showHeroSection, setShowHeroSection] = useState(true);
 
   const openModalHandler = (show) => {
     setOpenModal(show);
+  };
+
+  const heroSectionHandler = (show) => {
+    setShowHeroSection(show);
   };
 
   return (
@@ -26,13 +32,21 @@ function App() {
         document.getElementById("cart-modal")
       )}
       <Header showModalHandler={openModalHandler} />
+      <HeroSection />
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/store" element={<Products />} exact/>
+        <Route
+          path="/store"
+          element={<Products showHeroSection={heroSectionHandler} />}
+        />
         <Route path="/about" element={<About />} />
         <Route path="/contactUs" element={<ContactUs />} />
-        <Route path="/store/:productId" element={<ProductDetails/>}/>
+        <Route
+          path="/product-details/:productId"
+          element={<ProductDetails />}
+        />
+        <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
     </CartProvider>

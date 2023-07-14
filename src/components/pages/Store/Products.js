@@ -1,66 +1,9 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import CartContext from "../../store/cart-context";
 import { NavLink } from "react-router-dom";
 
-const productsArr = [
-  {
-    title: "Colors",
-
-    price: 100,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-  },
-
-  {
-    title: "Black and white Colors",
-
-    price: 50,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-  },
-
-  {
-    title: "Yellow and Black Colors",
-
-    price: 70,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-  },
-
-  {
-    title: "Blue Color",
-
-    price: 100,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
-  },
-  {
-    title: "Black and white Colors1",
-
-    price: 54,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-  },
-
-  {
-    title: "Yellow and Black Colors1",
-
-    price: 72,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-  },
-
-  {
-    title: "Blue Color1",
-
-    price: 101,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
-  },
-];
-
-const Products = () => {
+const Products = (props) => {
   const cartCtx = useContext(CartContext);
 
   const addToCart = (product, index) => {
@@ -73,14 +16,14 @@ const Products = () => {
 
       {
         <Row xs={1} md={5} className="mt-2 g-4">
-          {productsArr.map((product, idx) => (
+          {cartCtx._currentValue.totalProducts.map((product, idx) => (
             <Col key={idx}>
-              <Card>
-                <NavLink to="/product-details" >
+              <Card onClick={()=>props.showHeroSection(false)}>
+                <NavLink to={`/product-details/${product.id}`}>
                   <Card.Img variant="top" src={product.imageUrl} />
                 </NavLink>
                 <Card.Body className="text-center">
-                  <NavLink to="/product-details" >
+                  <NavLink style={{textDecoration:'none', color:'black'}} to={`/product-details/${product.id}`}>
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text>{`$${product.price}`}</Card.Text>
                   </NavLink>
