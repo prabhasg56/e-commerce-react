@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import CartModal from './Madal';
-import CartContext from '../store/cart-context';
+import CartContext from '../../store/cart-context';
 
 const cartElements = [
 

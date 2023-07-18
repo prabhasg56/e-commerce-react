@@ -2,7 +2,7 @@ import { Button, Nav, Navbar, Container } from "react-bootstrap";
 import { useContext } from "react";
 import { NavLink} from "react-router-dom";
 
-import CartContext from "../store/cart-context";
+import CartContext from "../../store/cart-context";
 import './Header.css'
 
 const Header = (props) => {
@@ -41,6 +41,14 @@ const Header = (props) => {
               style={{ fontWeight: "bold" }}
               onClick={() => props.showModalHandler(true)}
             >{`Cart ${cartCtx._currentValue.items.length}`}</Button>
+          </Nav>
+          <Nav>
+          <Nav.Link >
+              <NavLink to="/login" className="nav-componets">Login</NavLink>
+            </Nav.Link>
+            <Nav.Link >
+              <NavLink to="/logout" className="nav-componets">Logout</NavLink>
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>

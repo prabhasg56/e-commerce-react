@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import CartContext from "../store/cart-context";
+import CartContext from "../../store/cart-context";
 import { useContext } from "react";
 
 function CartModal(props) {
