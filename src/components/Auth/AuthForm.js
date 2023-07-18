@@ -53,7 +53,7 @@ const AuthForm = () => {
       console.log(responseJson);
 
       if (response.ok) {
-        authCtx._currentValue.login(responseJson.idToken, responseJson.refreshToken)
+        authCtx._currentValue.login(responseJson.idToken)
         
         navigate('/');
 

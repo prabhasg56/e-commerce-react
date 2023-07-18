@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import CartContext from "./cart-context";
 import productsArr from "./totalProducts";
 
@@ -86,6 +86,11 @@ const CartProvider = (props) => {
     defaultCartState
   );
 
+  const initialToken = localStorage.getItem('token');
+  const [idToken, setIdToken] = useState(initialToken);
+
+  const userIsLoggedIn = !!idToken;
+
   const addItemToCartHandler = (item) => {
     dispatchCartAction({ type: "ADD", item: item });
   };
@@ -98,14 +103,31 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "REMOVE", id: id });
   };
 
+  const loginHandler = (token) => {
+    setIdToken(token);
+    localStorage.setItem('token', token);
+  };
+
+  const logoutHandler = () => {
+    setIdToken(null);
+    localStorage.removeItem('token');
+  };
+
   const cartContext = React.createContext({
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     totalProducts: productsArr,
+    idToken: idToken,
+    isLoggedIn: userIsLoggedIn,
+    login: loginHandler,
+    logout: logoutHandler,
     addItem: addItemToCartHandler,
     buyItems: buyItemsHandler,
     removeItem: removeItemFromCartHandler,
   });
+
+  console.log("supriya"+(cartContext.isLoggedIn))
+
   return (
     <CartContext.Provider value={cartContext}>
       {props.children}

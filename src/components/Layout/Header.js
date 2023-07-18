@@ -1,12 +1,19 @@
 import { Button, Nav, Navbar, Container } from "react-bootstrap";
 import { useContext } from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink, useNavigate} from "react-router-dom";
 
 import CartContext from "../../store/cart-context";
-import './Header.css'
+import './Header.css';
 
 const Header = (props) => {
   const cartCtx = useContext(CartContext);
+
+  const navigate = useNavigate();
+
+  const removeToken = () => {
+    cartCtx._currentValue.logout();
+    navigate('/');
+  };
   return (
     <>
       <Navbar
@@ -26,7 +33,7 @@ const Header = (props) => {
               <NavLink to="/" className="nav-componets">Home</NavLink>
             </Nav.Link>
             <Nav.Link>
-              <NavLink to="/store" className="nav-componets">Store</NavLink>
+              {cartCtx._currentValue.isLoggedIn && <NavLink to="/store" className="nav-componets">Store</NavLink>}
             </Nav.Link>
             <Nav.Link>
               <NavLink to="/about" className="nav-componets">About</NavLink>
@@ -36,18 +43,18 @@ const Header = (props) => {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Button
+            {cartCtx._currentValue.isLoggedIn && <Button
               variant="light"
               style={{ fontWeight: "bold" }}
               onClick={() => props.showModalHandler(true)}
-            >{`Cart ${cartCtx._currentValue.items.length}`}</Button>
+            >{`Cart ${cartCtx._currentValue.items.length}`}</Button>}
           </Nav>
           <Nav>
           <Nav.Link >
-              <NavLink to="/login" className="nav-componets">Login</NavLink>
+              {!cartCtx._currentValue.isLoggedIn && <NavLink to="/login" className="nav-componets text-primary fw-bold">Login</NavLink>}
             </Nav.Link>
             <Nav.Link >
-              <NavLink to="/logout" className="nav-componets">Logout</NavLink>
+              {cartCtx._currentValue.isLoggedIn && <NavLink to="/logout" className="nav-componets text-danger fw-bold" onClick={() => removeToken()}>Logout</NavLink>}
             </Nav.Link>
           </Nav>
         </Container>
