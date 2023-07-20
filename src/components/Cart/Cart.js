@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from "axios";
 import CartModal from './Madal';
 import CartContext from '../../store/cart-context';
 

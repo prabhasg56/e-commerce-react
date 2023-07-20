@@ -102,7 +102,7 @@ const CartProvider = (props) => {
     removeSpecialCharFromEmail = email.replace(/[@.]/g, '')
   }
   
-  const baseUrl = `https://crudcrud.com/api/c8f14bcd32f14fd78dd509b4d70750fb/${removeSpecialCharFromEmail}`;
+  const baseUrl = `https://crudcrud.com/api/a64afd2599b345a7a164d292d59a4545/${removeSpecialCharFromEmail}`;
 
 
   const userIsLoggedIn = !!idToken;
