@@ -29,9 +29,10 @@ function App() {
     setShowHeroSection(show);
   };
 
+
   return (
     <>
-      {ReactDOM.createPortal(
+      {cartCtx._currentValue.isLoggedIn && ReactDOM.createPortal(
         <Cart showModal={openModal} showModalHandler={openModalHandler} />,
         document.getElementById("cart-modal")
       )}

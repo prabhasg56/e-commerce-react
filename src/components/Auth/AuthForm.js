@@ -24,6 +24,8 @@ const AuthForm = () => {
     const enteredUser = email.current.value;
     const enteredPassword = password.current.value;
 
+    localStorage.setItem('email', enteredUser);
+
     let url, message;
 
     if (isLogin) {
