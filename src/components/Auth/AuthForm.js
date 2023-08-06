@@ -1,10 +1,10 @@
 import { useState, useRef, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
 import CartContext from "../../store/cart-context";
 
-const AuthForm = () => {
+const AuthForm = (props) => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const email = useRef("");
@@ -24,7 +24,7 @@ const AuthForm = () => {
     const enteredUser = email.current.value;
     const enteredPassword = password.current.value;
 
-    localStorage.setItem('email', enteredUser);
+    localStorage.setItem("email", enteredUser);
 
     let url, message;
 
@@ -55,9 +55,9 @@ const AuthForm = () => {
       console.log(responseJson);
 
       if (response.ok) {
-        authCtx._currentValue.login(responseJson.idToken)
-        
-        navigate('/');
+        authCtx._currentValue.login(responseJson.idToken);
+
+        navigate("/");
 
         alert(message);
       } else {
@@ -72,6 +72,11 @@ const AuthForm = () => {
 
     setIsLoading(false);
   };
+
+  const forgotModalHandler = (e) => {
+    e.preventDefault();
+    props.showModalHandler(true);
+  }
 
   return (
     <section className={classes.auth}>
@@ -93,8 +98,13 @@ const AuthForm = () => {
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
-            {isLogin ? "Create new account" : "Login with existing account"}
+            {isLogin ? (
+              <span>Create new account</span>
+            ) : (
+              "Login with existing account"
+            )}
           </button>
+          {isLogin && <NavLink onClick={(e) => forgotModalHandler(e)}>Forgot Password?</NavLink>}
         </div>
       </form>
     </section>

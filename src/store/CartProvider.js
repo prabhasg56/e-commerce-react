@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartContext from "./cart-context";
 import productsArr from "./totalProducts";
 import axios from "axios";
@@ -96,31 +96,44 @@ const CartProvider = (props) => {
   const [idToken, setIdToken] = useState(initialToken);
   const [dummy, setDummy] = useState(0);
 
-  const email = localStorage.getItem('email');
+  const email = localStorage.getItem("email");
   let removeSpecialCharFromEmail;
-  if(email !== null){
-    removeSpecialCharFromEmail = email.replace(/[@.]/g, '')
+  if (email !== null) {
+    removeSpecialCharFromEmail = email.replace(/[@.]/g, "");
   }
-  
-  const baseUrl = `https://crudcrud.com/api/a64afd2599b345a7a164d292d59a4545/${removeSpecialCharFromEmail}`;
 
+  const baseUrl = `https://e-commerce-89d97-default-rtdb.firebaseio.com/${removeSpecialCharFromEmail}`;
 
   const userIsLoggedIn = !!idToken;
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get(`${baseUrl}`);
+      const response = await axios.get(`${baseUrl}.json`);
 
       if (response.status === 200) {
-        setItems(response.data);
-        let totalAmount = response.data.reduce((sumOfPrice, cur) => {
+        const fetchedData = response.data;
+        const cartData = [];
+
+        for (let key in fetchedData) {
+          cartData.push({
+            fId: key,
+            id: fetchedData[key].id,
+            title: fetchedData[key].title,
+            imageUrl: fetchedData[key].imageUrl,
+            price: fetchedData[key].price,
+            quantity: fetchedData[key].quantity,
+          });
+        }
+
+        setItems(cartData);
+        let totalAmount = cartData.reduce((sumOfPrice, cur) => {
           sumOfPrice = sumOfPrice + Number(cur.price);
           return sumOfPrice;
         }, 0);
 
         setTotalAmount(totalAmount);
 
-        return response;
+        return cartData;
       } else {
         throw new Error("Somthing went to wrong!");
       }
@@ -135,15 +148,15 @@ const CartProvider = (props) => {
 
   const addItemToCartHandler = async (curItem) => {
     // dispatchCartAction({ type: "ADD", item: item });
-    
+
     //fetcing data from crudcrud..
     try {
       const response = await fetchItems();
 
       //For empty cart
-      if (response.data.length === 0) {
+      if (!response) {
         try {
-          const response = await axios.post(`${baseUrl}`, {
+          const response = await axios.post(`${baseUrl}.json`, {
             id: curItem.id,
             title: curItem.title,
             imageUrl: curItem.imageUrl,
@@ -151,7 +164,7 @@ const CartProvider = (props) => {
             quantity: curItem.quantity,
           });
 
-          if (response.status === 201) {
+          if (response.status === 200) {
             alert("Successfully added!");
           } else {
             throw new Error("Somthing went wrong!");
@@ -161,9 +174,9 @@ const CartProvider = (props) => {
         }
       } else {
         let existingCartItemId, updatedQuantity, updatedPrice;
-        response.data.findIndex((item) => {
+        response.findIndex((item) => {
           if (curItem.id === item.id) {
-            existingCartItemId = item._id;
+            existingCartItemId = item.fId;
             updatedQuantity = Number(item.quantity) + 1;
             updatedPrice = Number(item.price) + curItem.price;
           }
@@ -173,7 +186,7 @@ const CartProvider = (props) => {
         if (existingCartItemId) {
           try {
             let responsePut = await axios.put(
-              `${baseUrl}/${existingCartItemId}`,
+              `${baseUrl}/${existingCartItemId}.json`,
               {
                 id: curItem.id,
                 title: curItem.title,
@@ -194,7 +207,7 @@ const CartProvider = (props) => {
         } else {
           // this is for non-existing item
           try {
-            let response = await axios.post(`${baseUrl}`, {
+            let response = await axios.post(`${baseUrl}.json`, {
               id: curItem.id,
               title: curItem.title,
               imageUrl: curItem.imageUrl,
@@ -202,7 +215,7 @@ const CartProvider = (props) => {
               quantity: curItem.quantity,
             });
 
-            if (response.status === 201) {
+            if (response.status === 200) {
               alert("Successfully added!");
             } else {
               throw new Error("Somthing went wrong!");
@@ -288,7 +301,7 @@ const CartProvider = (props) => {
 
     // setItems(updatedItems);
     // setTotalAmount(updatedTotalAmount);
-    setDummy(dummy+1);
+    setDummy(dummy + 1);
   };
 
   const buyItemsHandler = (item) => {
@@ -309,9 +322,7 @@ const CartProvider = (props) => {
 
       if (curItem.quantity === 1) {
         try {
-          const response = await axios.delete(
-            `${baseUrl}/${curItem._id}`
-          );
+          const response = await axios.delete(`${baseUrl}/${curItem._id}`);
 
           if (response.status === 200) {
             alert("Removed!");
@@ -332,16 +343,13 @@ const CartProvider = (props) => {
         });
 
         try {
-          let responsePut = await axios.put(
-            `${baseUrl}/${curItem._id}`,
-            {
-              id: curItem.id,
-              title: curItem.title,
-              imageUrl: curItem.imageUrl,
-              price: updatedPrice,
-              quantity: updatedQuantity,
-            }
-          );
+          let responsePut = await axios.put(`${baseUrl}/${curItem._id}`, {
+            id: curItem.id,
+            title: curItem.title,
+            imageUrl: curItem.imageUrl,
+            price: updatedPrice,
+            quantity: updatedQuantity,
+          });
 
           if (responsePut.status === 200) {
             alert("Removed!");
@@ -356,7 +364,7 @@ const CartProvider = (props) => {
       console.log(error);
     }
 
-    setDummy(dummy-1);
+    setDummy(dummy - 1);
     //This code for updating data in state without server
 
     // const existingCartItemIndex = items.findIndex((item) => item.index === id);

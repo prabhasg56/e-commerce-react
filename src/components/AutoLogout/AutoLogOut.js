@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CartContext from "../../store/cart-context";
 
 const AutoLogout = () => {
@@ -10,7 +10,6 @@ const AutoLogout = () => {
   useEffect(() => {
     const resetActivityTimer = () => {
       setLastActivity(Date.now());
-      console.log("pk" + lastActivity);
     };
 
     //add event listeners

@@ -14,9 +14,11 @@ import HeroSection from "./components/Layout/HeroSection";
 import AuthPage from "./pages/AuthPage";
 import CartContext from "./store/cart-context";
 import AutoLogout from "./components/AutoLogout/AutoLogOut";
+import ForgotModal from "./components/Auth/ForgotModal";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
+  const [showForgotModal, setShowForgotMoadal] = useState(false);
   const [showHeroSection, setShowHeroSection] = useState(true);
 
   const cartCtx = useContext(CartContext);
@@ -25,17 +27,31 @@ function App() {
     setOpenModal(show);
   };
 
+  const showForgotModalHandler = (show) => {
+    setShowForgotMoadal(show);
+  }
+
   const heroSectionHandler = (show) => {
     setShowHeroSection(show);
   };
 
-
   return (
     <>
-      {cartCtx._currentValue.isLoggedIn && ReactDOM.createPortal(
-        <Cart showModal={openModal} showModalHandler={openModalHandler} />,
-        document.getElementById("cart-modal")
-      )}
+      {cartCtx._currentValue.isLoggedIn &&
+        ReactDOM.createPortal(
+          <Cart showModal={openModal} showModalHandler={openModalHandler} />,
+          document.getElementById("cart-modal")
+        )}
+
+      {!cartCtx._currentValue.isLoggedIn &&
+        ReactDOM.createPortal(
+          <ForgotModal
+            showModal={showForgotModal}
+            showModalHandler={showForgotModalHandler}
+          />,
+          document.getElementById("forgot-password-modal")
+        )}
+
       <Header showModalHandler={openModalHandler} />
       <HeroSection />
 
@@ -43,7 +59,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
-          element={!cartCtx._currentValue.isLoggedIn ? <AuthPage /> : <Home />}
+          element={!cartCtx._currentValue.isLoggedIn ? <AuthPage showModalHandler={showForgotModalHandler}/> : <Home />}
         />
         <Route
           path="/store"
