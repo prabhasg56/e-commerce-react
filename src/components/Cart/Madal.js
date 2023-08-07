@@ -7,26 +7,36 @@ function CartModal(props) {
   const handleClose = () => props.showModalHandler(false);
 
   const buyHandler = () => {
-    if(cartCtx._currentValue.items.length === 0){
-      alert("You have Nothing in Cart , Add some products to purchase !")
+    if (cartCtx._currentValue.items.length === 0) {
+      alert("You have Nothing in Cart , Add some products to purchase !");
     } else {
       cartCtx._currentValue.buyItems(true);
     }
-  }
+  };
 
   return (
     <>
       <Modal show={props.showCartItems} class="modal-dialog modal-lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Your items</Modal.Title>
-        </Modal.Header>
+        <header className="modal-header">
+          <h5 className="modal-title" id="exampleModalLabel">
+            Your cart items
+          </h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            onClick={handleClose}
+          ></button>
+        </header>
         <Modal.Body>
           <table class="table ">
             <thead>
               <tr>
-                <th scope="col">Items</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
+                <th>Items</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>action</th>
               </tr>
             </thead>
 
@@ -45,7 +55,12 @@ function CartModal(props) {
                     <td>{`$${item.price}`}</td>
                     <td>{item.quantity}</td>
                     <td>
-                      <Button variant="danger" onClick={() => cartCtx._currentValue.removeItem(item)}>Remove</Button>
+                      <Button
+                        variant="danger"
+                        onClick={() => cartCtx._currentValue.removeItem(item)}
+                      >
+                        Remove
+                      </Button>
                     </td>
                   </tr>
                 </tbody>
@@ -60,7 +75,9 @@ function CartModal(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => buyHandler()}>Purchase</Button>
+          <Button variant="primary" onClick={() => buyHandler()}>
+            Purchase
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

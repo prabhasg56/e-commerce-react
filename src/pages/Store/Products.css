@@ -1,5 +1,15 @@
 .products {
-    display: flex;
-    flex-direction: row;
-    overflow-x:scroll;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
+.img {
+  object-fit: cover;
+  transition: all ease 1s;
+  cursor: zoom-in;
+}
+
+.img:hover {
+  scale: 1.1;
 }

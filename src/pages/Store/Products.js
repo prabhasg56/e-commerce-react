@@ -1,7 +1,8 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
 import React, { useContext } from "react";
-import CartContext from "../../store/cart-context";
 import { NavLink } from "react-router-dom";
+import CartContext from "../../store/cart-context";
+import "./Products.css";
 
 const Products = (props) => {
   const cartCtx = useContext(CartContext);
@@ -19,8 +20,8 @@ const Products = (props) => {
           {cartCtx._currentValue.totalProducts.map((product, idx) => (
             <Col key={idx}>
               <Card onClick={()=>props.showHeroSection(false)}>
-                <NavLink to={`/product-details/${product.id}`}>
-                  <Card.Img variant="top" src={product.imageUrl} />
+                <NavLink to={`/product-details/${product.id}`} >
+                  <Card.Img variant="top" src={product.imageUrl} className="img"/>
                 </NavLink>
                 <Card.Body className="text-center">
                   <NavLink style={{textDecoration:'none', color:'black'}} to={`/product-details/${product.id}`}>
